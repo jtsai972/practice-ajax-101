@@ -1,9 +1,15 @@
+var topics = ["puppies", "kitties", "bunnies", "ducklings", "puppy", "kitty", "hamster", "corgis", "dogs", "cats", "red pandas", "cute", "cute animals", "baby animals", "adorable animals"];
+
 var myKey = config.giphyKey; //api key
 
 
 
+function buttonGen() {
 
-// ToDo: Create an array of starter topics
+}
+
+
+// // ToDo: Create an array of starter topics
 
 // ToDo: Get input to add a new topic button
 

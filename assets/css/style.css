@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+    transition: all 0.5s ease;
+}
+body {
+    background: #ccc url("../images/swirl.png") center repeat;
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+
+}
+h1 { font-size: 3em; }
+h2 { font-size: 2.25em; }
+h3 { font-size: 1.5em;}
+
+a { color: #00BEE6; text-decoration: none;}
+a:hover { color: #52CC52; }
+a:visited { color: #B045E6; }
+
+header h1, main, footer p {
+    margin: 0 auto;
+    width: 90%;
+        max-width: 1080px;
+}
+
+header, main, footer {
+    padding: 2em;
+}
+
+header, footer { 
+    background-color: #222; 
+    color: #eee; 
+}
+main {
+    margin: 1em auto;
+    padding: 0;
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+}
+
+/* Buttons */
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+    #buttons button {
+        background: #009EBF;
+        border: 1px solid #0094B3;
+        color: white;
+        flex-basis: 12em;
+        margin: 0.5em;
+        padding: 0.5em;
+    }

@@ -1,11 +1,17 @@
 var topics = ["puppies", "kitties", "bunnies", "ducklings", "puppy", "kitty", "hamster", "corgis", "dogs", "cats", "red pandas", "cute", "cute animals", "baby animals", "adorable animals"];
 
 var myKey = config.giphyKey; //api key
+var str;
 
 
+for(let i = 0; i < topics.length; i++) {
+    buttonGen(topics[i]);
+}
 
-function buttonGen() {
 
+function buttonGen(str) {
+    var newButton = $("<button>").text(str);
+    $("#buttons").append(newButton);
 }
 
 

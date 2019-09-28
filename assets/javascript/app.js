@@ -1,4 +1,4 @@
-var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "baby penguins", "puppy", "kitty", "bunnies", "hamster", "cats", "dogs", "corgis", "red pandas", "quokka", "cute", "cute animals", "baby animals", "adorable animals"];
+var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "penguin chicks", "puppy", "kitty", "bunnies", "hamster", "cats", "dogs", "corgis", "red pandas", "quokka", "cute", "cute animals", "baby animals", "adorable animals"];
 //
 var str, imgStill, imgAnimate;
 
@@ -59,7 +59,7 @@ $(document).ready(function () {
         "&lang=en&q=" + queryValue;
         //console.log(queryRequest);
         
-        //Call query
+        //Call queryAPI
         queryAPI(queryRequest);
 
         //Offset the images by 10 every time this button is clicked
@@ -106,7 +106,7 @@ function buttonGen(str) {
             "data-offset" : 0
         });
 
-    $("#buttons").append(newButton);
+    $("#buttons .container").append(newButton);
 }
 
 function imageGen() {
@@ -120,7 +120,7 @@ function imageGen() {
         $("<figcaption>").text(`Content rating: ${queryRating}`)
     );
 
-    $("#images").prepend(figure);
+    $("#images .container").prepend(figure);
 }
 
 function queryAPI(queryURL) {

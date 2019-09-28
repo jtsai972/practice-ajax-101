@@ -25,7 +25,14 @@ body, button {
     letter-spacing: 1px;
 }
 
-header h1, main, footer p {
+/* Nav colors 
+    #003440 (dark blue (HSB 191, 100, 25) ) 
+    #005366 (next blue (HSB 191, 100, 40) )
+*/
+
+/* Sections */
+header h1, nav, main, footer p,
+form {
     margin: 0 auto;
     width: 90%;
         max-width: 1080px;
@@ -49,6 +56,18 @@ footer {
     text-align: center;
 }
 
+nav {
+    background: #003440;
+    padding: 0.5em; 
+}
+
+/* Search */
+#search {
+    background: #005366;
+    padding: 0.5em;
+}
+
+
 /* Buttons */
 #buttons {
     display: flex;
@@ -58,10 +77,21 @@ footer {
         background: #009EBF;
         border: 1px solid #0094B3;
         color: white;
-        flex-basis: 12em;
+        flex: 1 1 15%;
         margin: 0.5em;
         padding: 0.5em;
     }
     #buttons button:hover, .active {
         background: #52CC52;
+    }
+
+#images {
+    display: flex;
+    flex-wrap: wrap;
+}
+    figure {
+        background: #fff;
+        box-shadow: 2px 2px 5px 0 #ccc;
+        flex-basis: 300px;
+        margin: 1em;
     }

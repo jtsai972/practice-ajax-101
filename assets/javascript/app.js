@@ -21,18 +21,17 @@ for(let i = 0; i < topics.length; i++) {
 
 //Do this after page loads
 $(document).ready(function () {
-    
+    $("#buttons").on("click", "button", function() {
 
-    
-});
+        // ? Ajax incoming
+        $.ajax({
+            url : queryURL,
+            method : "GET"
+        }).then( function() {
 
+        });
+    });
 
-
-// ? Ajax incoming
-$.ajax({
-    url : queryURL,
-    method : "GET"
-}).then( function() {
 
 });
 

@@ -7,18 +7,20 @@ var myKey = config.giphyKey; //api key
 
 // ToDo: Properly name and set these up, these are placeholders
 
-var queryValue = ""; //input
-var queryLimit = 10 //
+var queryValue = "",
+    queryRequest = ""; 
+//May make these adjustable variables
+var queryLimit = 10
 var queryRating = "G";
+var queryOffset = 0;
 
 //This needs to go after the terms in it
 var queryURL = 
     "https://api.giphy.com/v1/gifs/search?" +
-    "&api_key" + myKey + 
+    "api_key=" + myKey + 
     "&limit=" + queryLimit + 
     "&rating=" + queryRating + 
-    "&offset=0&lang=en" + 
-    "&q=" + queryValue;
+    "&offset="; //need to add offset and query default ending
 
 //generating topics at the start
 for(let i = 0; i < topics.length; i++) {
@@ -36,11 +38,50 @@ for(let i = 0; i < topics.length; i++) {
 //Do this after page loads
 $(document).ready(function () {
     $("#buttons").on("click", "button", function() {
+        var queryValue = $(this).attr("data-query");
+        var queryOffset = $(this).attr("data-offset");
 
-        //get button value, trim it, and then send put it into the ajax
+        //console.log(`Topic: ${queryValue}, Offset: ${queryOffset}`);
 
+        var queryRequest = queryURL + queryOffset +
+        "&lang=en&q=" + queryValue;
+        //console.log(queryRequest);
         
+        //Call query
+        queryAPI(queryRequest);
+
+        //Offset the images by 10 every time this button is clicked
+        $(this).attr("data-offset", (parseInt(queryOffset) + 10));
+        //console.log(queryOffset);
     });
+
+    /* $("#images").on("mouseenter", "figure", function() {
+        console.log("hover");
+        
+        var img = $(this).find("img");
+        //console.log(img);
+
+        var state = img.attr("data-state");
+        //console.log(state);
+
+        state === "still" ?
+            img.attr({"src": img.attr("data-animate"), "data-state": "animate"}) :
+            img.attr({"src": img.attr("data-still"), "data-state": "still"});
+    }); */
+
+    $("#images").on("click", "figure", function() {
+        console.log("image click");
+
+        var img = $(this).find("img");
+        //console.log(img);
+
+        var state = img.attr("data-state");
+        //console.log(state);
+
+        state === "still" ?
+            img.attr({"src": img.attr("data-animate"), "data-state": "animate"}) :
+            img.attr({"src": img.attr("data-still"), "data-state": "still"});
+    })
 });
 
 // ? Welcome to functions
@@ -48,25 +89,29 @@ $(document).ready(function () {
 function buttonGen(str) {
     var newButton = $("<button>")
         .text(str)
-        .attr("data-query", (str.replace(/\s/g,'/')));
+        .attr({
+            "data-query" : (str.replace(/\s/g,'/')),
+            "data-offset" : 0
+        });
 
     $("#buttons").append(newButton);
 }
 
 function imageGen() {
-    $("<figure>").append(
+    var figure = $("<figure>").append(
         $("<img>").attr({
-            //! these are temporary variables for setup
             "src" : imgStill,
-            "data-value": "still",
+            "data-state" : "still",
             "data-still" : imgStill,
             "data-animate" : imgAnimate
         }),
-        $("<figcaption>").text(`Content rating: ${tempRating}`)
+        $("<figcaption>").text(`Content rating: ${queryRating}`)
     );
+
+    $("#images").prepend(figure);
 }
 
-function queryAPI() {
+function queryAPI(queryURL) {
     // ? Ajax incoming
     $.ajax({
         url : queryURL,
@@ -74,9 +119,13 @@ function queryAPI() {
     }).then( function(response) {
         var queryResult = response;
 
-        for(let i = 0; i < )
-        imgStill = response.data[i].images.original_still.url;
+        for(let i = 0; i < queryLimit; i++) {
+            imgStill = queryResult.data[i].images.fixed_height_still.url;
+            imgAnimate = queryResult.data[i].images.fixed_height.url;
+            queryRating = queryResult.data[i].rating;
 
+            imageGen();
+        }
     });
 }
 

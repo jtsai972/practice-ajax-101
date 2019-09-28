@@ -96,6 +96,7 @@ nav {
         flex: 1 1 auto;
         margin: 0.5em;
         padding: 0.5em;
+        max-width:30%;
     }
 
     figure img {

@@ -1,4 +1,4 @@
-var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "penguin chicks", "puppy", "kitty", "bunnies", "hamster", "cats", "dogs", "corgis", "red pandas", "quokka", "cute", "cute animals", "baby animals", "adorable animals"];
+var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "puppy", "kitty", "bunnies", "hamster", "cats", "dogs", "corgis", "red pandas", "quokka", "cute", "cute animals", "baby animals", "adorable animals"];
 //
 var str, imgStill, imgAnimate;
 
@@ -46,7 +46,7 @@ $(document).ready(function () {
 
         buttonGen(queryNew);
 
-        $('#search form').trigger("reset")
+        $('#search form').trigger("reset");
     });
 
     $("#buttons").on("click", "button", function() {
@@ -132,8 +132,8 @@ function queryAPI(queryURL) {
         var queryResult = response;
 
         for(let i = 0; i < queryLimit; i++) {
-            imgStill = queryResult.data[i].images.fixed_height_still.url;
-            imgAnimate = queryResult.data[i].images.fixed_height.url;
+            imgStill = queryResult.data[i].images.downsized_still.url;
+            imgAnimate = queryResult.data[i].images.downsized.url;
             queryRating = queryResult.data[i].rating;
 
             imageGen();

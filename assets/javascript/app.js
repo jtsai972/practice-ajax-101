@@ -1,4 +1,4 @@
-var topics = ["puppies", "kitties", "bunnies", "ducklings", "puppy", "kitty", "hamster", "corgis", "dogs", "cats", "red pandas", "cute", "cute animals", "baby animals", "adorable animals"];
+var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "baby penguins", "puppy", "kitty", "bunnies", "hamster", "cats", "dogs", "corgis", "red pandas", "quokka", "cute", "cute animals", "baby animals", "adorable animals"];
 //
 var str, imgStill, imgAnimate;
 

@@ -3,7 +3,7 @@ var topics = ["puppies", "kitties", "bunnies", "ducklings", "puppy", "kitty", "h
 var str, imgStill, imgAnimate;
 
 //API variables
-var myKey = qzlhtmpfdoOXU95kvVJ4TIH9hkBxj8Od; //api key
+var myKey = "qzlhtmpfdoOXU95kvVJ4TIH9hkBxj8Od"; //api key
 
 // ToDo: Properly name and set these up, these are placeholders
 

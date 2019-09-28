@@ -37,6 +37,18 @@ for(let i = 0; i < topics.length; i++) {
 
 //Do this after page loads
 $(document).ready(function () {
+    $("#search button").on("click", function() {
+        event.preventDefault();
+        console.log("submitted");
+        
+        var queryNew = $("input").val();
+        console.log(queryNew);
+
+        buttonGen(queryNew);
+
+        $('#search form').trigger("reset")
+    });
+
     $("#buttons").on("click", "button", function() {
         var queryValue = $(this).attr("data-query");
         var queryOffset = $(this).attr("data-offset");

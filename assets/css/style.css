@@ -92,6 +92,11 @@ nav {
     figure {
         background: #fff;
         box-shadow: 2px 2px 5px 0 #ccc;
-        flex-basis: 300px;
+        flex: 1 1 auto;
         margin: 1em;
+        padding: 0.5em;        
+    }
+
+    figure img {
+        width: 100%;
     }

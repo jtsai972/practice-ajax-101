@@ -67,20 +67,6 @@ $(document).ready(function () {
         //console.log(queryOffset);
     });
 
-    /* $("#images").on("mouseenter", "figure", function() {
-        console.log("hover");
-        
-        var img = $(this).find("img");
-        //console.log(img);
-
-        var state = img.attr("data-state");
-        //console.log(state);
-
-        state === "still" ?
-            img.attr({"src": img.attr("data-animate"), "data-state": "animate"}) :
-            img.attr({"src": img.attr("data-still"), "data-state": "still"});
-    }); */
-
     $("#images").on("click", "figure", function() {
         console.log("image click");
 
@@ -91,8 +77,38 @@ $(document).ready(function () {
         //console.log(state);
 
         state === "still" ?
-            img.attr({"src": img.attr("data-animate"), "data-state": "animate"}) :
-            img.attr({"src": img.attr("data-still"), "data-state": "still"});
+            img.attr({
+                "src": img.attr("data-animate"), 
+                "data-state": "animate"
+            }) :
+            img.attr({
+                "src": img.attr("data-still"), 
+                "data-state": "still"
+            });
+    })
+
+    // Image Mouseover
+    $("#images").on("mouseover", "figure", function() {
+        console.log("mouse over");
+
+        var img = $(this).find("img");
+
+        img.attr({
+            "src": img.attr("data-animate"), 
+            "data-state": "animate"
+        });
+    })
+
+    // Image Mouseout
+    $("#images").on("mouseout", "figure", function() {
+        console.log("mouse out");
+
+        var img = $(this).find("img");
+
+        img.attr({
+            "src": img.attr("data-still"), 
+            "data-state": "still"
+        });
     })
 });
 

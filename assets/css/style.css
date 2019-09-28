@@ -16,6 +16,8 @@ h1, h2, h3 {
 h1 { font-size: 3em; }
 h2 { font-size: 2.25em; }
 
+h1 .subtitle { font-size: 0.75em;}
+
 a { color: #00BEE6; text-decoration: none;}
 a:hover { color: #52CC52; }
 a:visited { color: #B045E6; }
@@ -77,7 +79,7 @@ nav {
         background: #009EBF;
         border: 1px solid #0094B3;
         color: white;
-        flex: 1 1 15%;
+        flex: 1 1 10em;
         margin: 0.5em;
         padding: 0.5em;
     }
@@ -94,7 +96,7 @@ nav {
         box-shadow: 2px 2px 5px 0 #ccc;
         flex: 1 1 auto;
         margin: 1em;
-        padding: 0.5em;        
+        padding: 0.5em;
     }
 
     figure img {

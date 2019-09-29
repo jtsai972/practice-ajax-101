@@ -10,43 +10,38 @@ body {
     min-height: 100vh;
 }
 
-h1, h2, h3 {
-    font-family: "Fredericka the Great", Georgia, 'Times New Roman', Times, serif;
-}
-h1 { font-size: 3em; }
-h2 { font-size: 2.25em; }
+/* Text Styling */
+    body, button { 
+        font-family: "Raleway", Arial, Helvetica, sans-serif;
+        letter-spacing: 1px;
+    }
+    
+    h1, h2, h3 {
+        font-family: "Fredericka the Great", Georgia, serif;
+    }
+    h1 { font-size: 3em; color: white; }
+    h2 { font-size: 2.25em; }
 
-h1 .subtitle { font-size: 0.75em;}
+    h1 .subtitle { font-size: 0.75em;}
 
-a { color: #00BEE6; text-decoration: none;}
-a:hover { color: #52CC52; }
-a:visited { color: #B045E6; }
-
-body, button { 
-    font-family: "Raleway", Arial, Helvetica, sans-serif;
-    letter-spacing: 1px;
-}
-
-/* Nav colors 
-    #003440 (dark blue (HSB 191, 100, 25) ) 
-    #005366 (next blue (HSB 191, 100, 40) )
-*/
+    a { color: #00BEE6; text-decoration: none;}
+    a:hover { color: #52CC52; }
+    a:visited { color: #B045E6; }
+    
+    strong { font-weight: bold;}
 
 /* Sections */
-header h1, nav, .container , footer p,
+header h1, nav, .container, .more , footer p,
 form {
     margin: 0 auto;
     width: 90%;
         max-width: 1080px;
 }
 
-header, footer {
-    padding: 2em;
-}
-
 header, footer { 
     background-color: #222; 
     color: #eee; 
+    padding: 2em;
 }
 
 footer {
@@ -54,10 +49,15 @@ footer {
     text-align: center;
 }
 
-nav {
-    background: #003440;
-    padding: 0.5em; 
-}
+/* Navigation */
+    nav {
+        background: #003440;
+        padding: 0.5em; 
+    }
+    /* Nav colors 
+        #003440 (dark blue (HSB 191, 100, 25) ) 
+        #005366 (next blue (HSB 191, 100, 40) )
+    */
 
 /* Search */
 #search {
@@ -65,6 +65,12 @@ nav {
     padding: 0.5em;
 }
 
+/* Collapse */
+    .collapse {
+        height: 0;
+        overflow: hidden;
+        transition: all 2s ease;
+    }
 
 /* Buttons */
 #buttons {
@@ -82,10 +88,12 @@ nav {
         margin: 0.5em;
         padding: 0.5em;
     }
-    #buttons button:hover, .active {
-        background: #52CC52;
+    #buttons button:hover, 
+    .active { 
+        background: #52CC52; 
     }
 
+/* Images */
 #images .container {
     display: flex;
     flex-wrap: wrap;
@@ -96,9 +104,61 @@ nav {
         flex: 1 1 auto;
         margin: 0.5em;
         padding: 0.5em;
-        max-width:30%;
+        position: relative;
+        text-align: center;
+        width: 20%;
+        max-width: 33%;
     }
+        figure img { width: 100%; }
+        figure .fav {
+            background: transparent;
+            border: none;
+            color: white;
+            display: none;
+            font-size: 1.5em;
+            padding: 0.25em;
+            margin: 0.5em;
+            position: absolute;
+                top: 0;
+                right: 0;
+        }
+            figure .fas {
+                color: #FFD500;
+            }
+            figure:hover .fav,
+            figure .fav .far, 
+            figure .fav:hover .fas {
+                display: inline-block;
+            }
+            figure .fav .fas, 
+            figure .fav:hover .far {
+                display: none;
+            }
+        .title {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+        
 
-    figure img {
-        width: 100%;
+@media(max-width: 50em) {
+
+    figure {
+        width: 30%;
+        max-width: 50%;
     }
+}
+
+@media(max-width: 40em) {
+    figure {
+        width: 40%;
+        max-width:50%; 
+    }
+}
+
+@media(max-width: 30em) {
+    figure {
+        width: 90%;
+        max-width: 100%;
+    }
+}

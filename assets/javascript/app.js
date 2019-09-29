@@ -2,13 +2,16 @@ var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "puppy", "kitty
 //
 var str, imgStill, imgAnimate;
 
+var favCookie;
+
 //API variables
 var myKey = "qzlhtmpfdoOXU95kvVJ4TIH9hkBxj8Od"; //api key
 
 // ToDo: Properly name and set these up, these are placeholders
 
 var queryValue = "",
-    queryRequest = ""; 
+    queryRequest = "",
+    queryTitle; 
 //May make these adjustable variables
 var queryLimit = 10
 var queryRating = "G";
@@ -21,6 +24,10 @@ var queryURL =
     "&limit=" + queryLimit + 
     "&rating=" + queryRating + 
     "&offset="; //need to add offset and query default ending
+
+//Button vars
+buttonCollapse = false;
+
 
 //generating topics at the start
 for(let i = 0; i < topics.length; i++) {
@@ -49,7 +56,8 @@ $(document).ready(function () {
         $('#search form').trigger("reset");
     });
 
-    $("#buttons").on("click", "button", function() {
+
+    $("#buttons").on("click", ".container button", function() {
         var queryValue = $(this).attr("data-query");
         var queryOffset = $(this).attr("data-offset");
 
@@ -115,6 +123,7 @@ $(document).ready(function () {
 // ? Welcome to functions
 
 function buttonGen(str) {
+    var btnContainer = $("#buttons .container")
     var newButton = $("<button>")
         .text(str)
         .attr({
@@ -122,18 +131,32 @@ function buttonGen(str) {
             "data-offset" : 0
         });
 
-    $("#buttons .container").append(newButton);
+    btnContainer.append(newButton);
+
+    /* if ((buttonCollapse === false) && (btnContainer.height() > 200)) {
+        buttonCollapse == true;
+        btnContainer.addClass("collapse");
+        $("#buttons .more").removeClass("collapse");
+    } */
 }
 
 function imageGen() {
     var figure = $("<figure>").append(
+        $("<button class='fav'>").append(
+            "<i class='fas fa-star'>",
+            "<i class='far fa-star'>"
+        ),
         $("<img>").attr({
             "src" : imgStill,
             "data-state" : "still",
             "data-still" : imgStill,
             "data-animate" : imgAnimate
         }),
-        $("<figcaption>").text(`Content rating: ${queryRating}`)
+        $("<figcaption>").append(
+            $("<p class='title'>").text(queryTitle),
+            $("<p>").text(`${queryRating}-rated content`)
+
+        )
     );
 
     $("#images .container").prepend(figure);
@@ -146,11 +169,17 @@ function queryAPI(queryURL) {
         method : "GET"
     }).then( function(response) {
         var queryResult = response;
+        
 
         for(let i = 0; i < queryLimit; i++) {
-            imgStill = queryResult.data[i].images.downsized_still.url;
-            imgAnimate = queryResult.data[i].images.downsized.url;
-            queryRating = queryResult.data[i].rating;
+            var queryPath = queryResult.data[i];
+
+            imgStill = queryPath.images.fixed_height_still.url;
+            imgAnimate = queryPath.images.fixed_height.url;
+            queryRating = queryPath.rating;
+            queryTitle = (queryPath.title).replace(/(GIF).*$/g, "");
+
+            
 
             imageGen();
         }

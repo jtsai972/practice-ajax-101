@@ -14,8 +14,9 @@
     src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/ca2e62e2c7.js" crossorigin="anonymous"></script>
+    <!--<script src="https://kit.fontawesome.com/ca2e62e2c7.js" crossorigin="anonymous"></script>-->
     <script defer type="text/javascript" src="assets/javascript/app.js"></script>
+    <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
@@ -29,17 +30,8 @@
     <header>
         <h1>Giphy Magic: <span class="subtitle">Cuteness Edition</span></h1>
     </header>
-    <section id="search">
-        <form>
-            <input name="search" type="text" aria-label="search" placeholder="Search Giphy">
-            <button>Submit</button>
-        </form>
-    </section>
-
-
     <!-- future implementation of favorites maybe, will need to become a menu icon for responsive -->
     <!-- Navigation between image page and favorites-->
-    <!-- Image search will go here when implemented -->
     <nav>
         <div class="container">
             <button id="nav-images">images</button>
@@ -48,7 +40,14 @@
     </nav>
 
     <!-- Main section -->
-    <main>        
+    <main>
+        <section id="search">
+            <form>
+                <input name="search" type="text" aria-label="search" placeholder="Search Giphy">
+                <button><i class="fas fa-search"></i></button>
+            </form>
+        </section>
+
         <section id="buttons">
             <div class="container"></div>
             <!-- <div class="more"><button>More >></button></div> -->
@@ -66,8 +65,10 @@
     </main>
 
     <footer>
-        <p>Created by Jasmine</p>
-        <p>This site uses the <a href="https://developers.giphy.com/" rel="noopener noreferrer" >Giphy API</a></p>
+        <div class="container">
+            <p>Created by Jasmine</p>
+            <p>This site uses the <a href="https://developers.giphy.com/" rel="noopener noreferrer" >Giphy API</a></p>
+        </div>
     </footer>
 
 </body>

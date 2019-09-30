@@ -31,8 +31,7 @@ body {
     strong { font-weight: bold;}
 
 /* Sections */
-header h1, nav, .container, .more , footer p,
-form {
+header h1, .container, .more, form {
     margin: 0 auto;
     width: 90%;
         max-width: 1080px;
@@ -51,19 +50,44 @@ footer {
 
 /* Navigation */
     nav {
-        background: #003440;
+        background: #00404D;
+        color: white;
         padding: 0.5em; 
     }
+        nav button {
+            background: transparent;
+            border: none;
+                border-right: 1px solid white;
+            color: white;
+            font-weight:bolder;
+            margin: 0.25em auto;
+            padding: 0.25em 1em;
+        }
+        nav button:last-of-type {
+            border: none;
+        }
     /* Nav colors 
-        #003440 (dark blue (HSB 191, 100, 25) ) 
-        #005366 (next blue (HSB 191, 100, 40) )
+        #00404D (dark blue (HSB 190, 100, 30) ) 
+        #005F73 (next blue (HSB 190, 100, 45) )
     */
 
 /* Search */
 #search {
-    background: #005366;
+    background: #005F73;
+    font-size: 1.2em;
     padding: 0.5em;
 }
+#search form { display: flex; }
+    #search input, #search button {
+        border: none;
+        margin-left: 0.5em;
+        padding: 0.4em;
+    }
+    #search button {
+        background: white;
+        color: #444;
+        margin-left: 0;
+    }
 
 /* Collapse */
     .collapse {
@@ -74,17 +98,18 @@ footer {
 
 /* Buttons */
 #buttons {
-    background: rgba(50,50,50,0.1);
+    background: #007F99;
 }
 #buttons .container {
     display: flex;
     flex-wrap: wrap;
 }
     #buttons button {
-        background: #009EBF;
+        background: #eee;
         border: 1px solid #0094B3;
-        color: white;
+        color: #222;
         flex: 1 1 10em;
+        font-weight: 600;
         margin: 0.5em;
         padding: 0.5em;
     }

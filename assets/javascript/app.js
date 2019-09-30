@@ -94,10 +94,12 @@ $(document).ready(function () {
                 "data-state": "still"
             });
     })
+    
+    $("#images").on("click", "button", favorite)
 
     // Image Mouseover
-    $("#images").on("mouseover", "figure", function() {
-        console.log("mouse over");
+    $("#images").on("mouseenter", "figure", function() {
+        console.log("mouse enter");
 
         var img = $(this).find("img");
 
@@ -108,8 +110,8 @@ $(document).ready(function () {
     })
 
     // Image Mouseout
-    $("#images").on("mouseout", "figure", function() {
-        console.log("mouse out");
+    $("#images").on("mouseleave", "figure", function() {
+        console.log("mouse leave");
 
         var img = $(this).find("img");
 
@@ -179,31 +181,31 @@ function queryAPI(queryURL) {
             queryRating = queryPath.rating;
             queryTitle = (queryPath.title).replace(/(GIF).*$/g, "");
 
-            
-
             imageGen();
         }
     });
 }
 
+function favorite() {
+
+}
+
 // // ToDo: Create an array of starter topics
 
-// ToDo: Get input to add a new topic button
+// // ToDo: Get input to add a new topic button
 
-// ToDo: set up an ajax
-// ToDo: Create a variable for the api url and search topic
+// // ToDo: set up ajax
+// // ToDo: Create a variable for the api url and search topic
 
 // Functions 
 // // ToDo: make something to generate and append the buttons
 
-// ToDo: print 10 gif thumbnails to the page
+// // ToDo: print 10 gif thumbnails to the page
 
 // ToDo: Show gif PG rating (better make it look nice)
 
-// ToDo: make gif start/stop running on click;
-// ToDO: make gif start on hover 
-
-// ToDo: make it so you can scroll down and get 10 more gifs
+// // ToDo: make gif start/stop running on click;
+// // ToDO: make gif start on hover 
 
 
 /**
@@ -211,4 +213,5 @@ function queryAPI(queryURL) {
  * * Add a persistent favorites section (possibly with cookies)
  * * Make this responsive
  * * Integrate with other APIs
+ * * make it so you can scroll down and get 10 more gifs
  */

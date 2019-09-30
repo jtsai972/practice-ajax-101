@@ -46,10 +46,10 @@ for(let i = 0; i < topics.length; i++) {
 $(document).ready(function () {
     $("#search button").on("click", function() {
         event.preventDefault();
-        console.log("submitted");
+        //console.log("submitted");
         
         var queryNew = $("input").val();
-        console.log(queryNew);
+        //console.log(queryNew);
 
         buttonGen(queryNew);
 
@@ -76,7 +76,7 @@ $(document).ready(function () {
     });
 
     $("#images").on("click", "figure", function() {
-        console.log("image click");
+        //console.log("image click");
 
         var img = $(this).find("img");
         //console.log(img);
@@ -97,7 +97,7 @@ $(document).ready(function () {
     
     $("#images").on("click", "button", function() {
         var imgFav = $(this).parent().find("img");
-        console.log(imgFav);
+        //console.log(imgFav);
 
         var newFav = {
             animate: imgFav.attr("data-animate"),
@@ -106,14 +106,14 @@ $(document).ready(function () {
             still: imgFav.attr("data-still"),
             title: imgFav.attr("alt")
         };
-        console.log(newFav);
+        //console.log(newFav);
 
         favorite(newFav);
     })
 
     // Image Mouseover
     $("#images").on("mouseenter", "figure", function() {
-        console.log("mouse enter");
+        //console.log("mouse enter");
 
         var img = $(this).find("img");
 
@@ -125,7 +125,7 @@ $(document).ready(function () {
 
     // Image Mouseout
     $("#images").on("mouseleave", "figure", function() {
-        console.log("mouse leave");
+        //console.log("mouse leave");
 
         var img = $(this).find("img");
 

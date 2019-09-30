@@ -2,7 +2,7 @@ var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "puppy", "kitty
 //
 var str, imgStill, imgAnimate;
 
-var favCookie;
+var favCookie, favImg, favArray = [];
 
 //API variables
 var myKey = "qzlhtmpfdoOXU95kvVJ4TIH9hkBxj8Od"; //api key
@@ -95,7 +95,21 @@ $(document).ready(function () {
             });
     })
     
-    $("#images").on("click", "button", favorite)
+    $("#images").on("click", "button", function() {
+        var imgFav = $(this).parent().find("img");
+        console.log(imgFav);
+
+        var newFav = {
+            animate: imgFav.attr("data-animate"),
+            rating: imgFav.attr("data-rating"),
+            src: imgFav.attr("src"),
+            still: imgFav.attr("data-still"),
+            title: imgFav.attr("alt")
+        };
+        console.log(newFav);
+
+        favorite(newFav);
+    })
 
     // Image Mouseover
     $("#images").on("mouseenter", "figure", function() {
@@ -149,10 +163,12 @@ function imageGen() {
             "<i class='far fa-star'>"
         ),
         $("<img>").attr({
+            "alt" : queryTitle,
             "src" : imgStill,
             "data-state" : "still",
             "data-still" : imgStill,
-            "data-animate" : imgAnimate
+            "data-animate" : imgAnimate,
+            "data-rating" : queryRating
         }),
         $("<figcaption>").append(
             $("<p class='title'>").text(queryTitle),
@@ -186,8 +202,24 @@ function queryAPI(queryURL) {
     });
 }
 
-function favorite() {
+function favorite(fav) {
+    favArray.push(fav);
 
+    var favFig = $("<figure>").append(
+        $("<img>").attr({
+            "alt" : title,
+            "src" : still,
+            "data-state" : "still",
+            "data-still" : still,
+            "data-animate" : animate
+        }),
+        $("<figcaption>").append(
+            $("<p class='title'>").text(title),
+            $("<p>").text(`${rating}-rated content`)
+        )
+    );
+
+    $("#favorites").append(favFig);
 }
 
 // // ToDo: Create an array of starter topics

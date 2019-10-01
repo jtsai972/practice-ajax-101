@@ -148,11 +148,10 @@ $(document).ready(function () {
         var newFav = {
             animate: imgFav.attr("data-animate"),
             rating: imgFav.attr("data-rating"),
-            src: imgFav.attr("src"),
             still: imgFav.attr("data-still"),
             title: imgFav.attr("alt")
         };
-        console.log(newFav);
+        //console.log(newFav);
 
         favorite(newFav);
     });
@@ -234,6 +233,21 @@ function queryAPI(queryURL) {
     });
 }
 
+function toggleAnimation(img){
+    var state = img.attr("data-state");
+        //console.log(state);
+
+    state === "still" ?
+        img.attr({
+            "src": img.attr("data-animate"), 
+            "data-state": "animate"
+        }) :
+        img.attr({
+            "src": img.attr("data-still"), 
+            "data-state": "still"
+        });
+}
+
 function favorite(fav) {
     favArray.push(fav);
 
@@ -256,21 +270,8 @@ function favorite(fav) {
     );
 
     $("#favorites .container").append(favFig);
-}
 
-function toggleAnimation(img){
-    var state = img.attr("data-state");
-        //console.log(state);
-
-    state === "still" ?
-        img.attr({
-            "src": img.attr("data-animate"), 
-            "data-state": "animate"
-        }) :
-        img.attr({
-            "src": img.attr("data-still"), 
-            "data-state": "still"
-        });
+    localStorage.favorites = JSON.stringify(favArray);
 }
 
 // // ToDo: Create an array of starter topics

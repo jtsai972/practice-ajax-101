@@ -28,6 +28,8 @@ var queryURL =
 //Button vars
 buttonCollapse = false;
 
+$("#favorites").hide();
+
 
 //generating topics at the start
 for(let i = 0; i < topics.length; i++) {
@@ -187,6 +189,7 @@ function queryAPI(queryURL) {
         method : "GET"
     }).then( function(response) {
         var queryResult = response;
+        var queryTitle = "";
         
 
         for(let i = 0; i < queryLimit; i++) {
@@ -207,15 +210,15 @@ function favorite(fav) {
 
     var favFig = $("<figure>").append(
         $("<img>").attr({
-            "alt" : title,
-            "src" : still,
+            "alt" : fav.title,
+            "src" : fav.still,
             "data-state" : "still",
-            "data-still" : still,
-            "data-animate" : animate
+            "data-still" : fav.still,
+            "data-animate" : fav.animate
         }),
         $("<figcaption>").append(
-            $("<p class='title'>").text(title),
-            $("<p>").text(`${rating}-rated content`)
+            $("<p class='title'>").text(fav.title),
+            $("<p>").text(`${fav.rating}-rated content`)
         )
     );
 

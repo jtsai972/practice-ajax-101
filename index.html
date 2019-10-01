@@ -35,30 +35,37 @@
     <nav>
         <div class="container">
             <button id="nav-images">images</button>
-            <button id="nav-favorites">favorites</a>
+            <button id="nav-favorites">favorites</button>
         </div>
     </nav>
 
     <!-- Main section -->
     <main>
         <section id="search">
-            <form>
-                <input name="search" type="text" aria-label="search" placeholder="Search Giphy">
-                <button><i class="fas fa-search"></i></button>
-            </form>
+            <div class="container">
+                <form>
+                    <input name="search" type="text" aria-label="search" placeholder="Search Giphy">
+                    <button><i class="fas fa-search"></i></button>
+                </form>
+                <div class="btn-holder">
+                    <button id="clearBtn" class="img">clear topics</button>
+                    <button id="clearImg" class="img">clear images</button>
+                    <button id="clearFav" class="fav">clear favorites</button>
+                </div>
+            </div>
         </section>
 
-        <section id="buttons">
+        <section id="buttons" class="img">
             <div class="container"></div>
             <!-- <div class="more"><button>More >></button></div> -->
         </section>
 
-        <section id="images">
+        <section id="images" class="img">
             <div class="container"></div>
         </section>
 
         <!-- Ideally set up a sliding page like "a dark room" to store the favorites -->
-        <section id="favorites">
+        <section id="favorites" class="fav">
             <div class="container"></div>
         </section>
 

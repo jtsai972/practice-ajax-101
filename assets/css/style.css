@@ -30,8 +30,22 @@ body {
     
     strong { font-weight: bold;}
 
+/* Button styling */
+    button {
+        background: #eee;
+        border: 1px solid #0094B3;
+        color: #222;
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    button:hover, 
+    .active { 
+        background: #52CC52; 
+    }
+
 /* Sections */
-header h1, .container, .more, form {
+header h1, .container, .more {
     margin: 0 auto;
     width: 90%;
         max-width: 1080px;
@@ -77,17 +91,20 @@ footer {
     font-size: 1.2em;
     padding: 0.5em;
 }
-#search form { display: flex; }
-    #search input, #search button {
-        border: none;
+#search .container {
+    display: flex;
+        justify-content: space-between;
+}
+    #search form { display: flex; }
+        #search input, #search form button {
+            border: none;
+            padding: 0.4em;
+        }
+    #search .btn-holder button {
         margin-left: 0.5em;
-        padding: 0.4em;
+        padding: 0.5em 1em;
     }
-    #search button {
-        background: white;
-        color: #444;
-        margin-left: 0;
-    }
+
 
 /* Collapse */
     .collapse {
@@ -103,23 +120,15 @@ footer {
 #buttons .container {
     display: flex;
     flex-wrap: wrap;
+    padding: 0.5em 0;
 }
     #buttons button {
-        background: #eee;
-        border: 1px solid #0094B3;
-        color: #222;
         flex: 1 1 10em;
-        font-weight: 600;
         margin: 0.5em;
-        padding: 0.5em;
-    }
-    #buttons button:hover, 
-    .active { 
-        background: #52CC52; 
     }
 
 /* Images */
-#images .container {
+#images .container, #favorites .container {
     display: flex;
     flex-wrap: wrap;
 }
@@ -135,7 +144,7 @@ footer {
         max-width: 33%;
     }
         figure img { width: 100%; }
-        figure .fav {
+        figure .favBtn {
             background: transparent;
             border: none;
             color: white;
@@ -149,13 +158,13 @@ footer {
             figure .fas {
                 color: #FFD500;
             }
-            figure:hover .fav,
-            figure .fav .far, 
-            figure .fav:hover .fas {
+            figure:hover .favBtn,
+            figure .favBtn .far, 
+            figure .favBtn:hover .fas {
                 display: inline-block;
             }
-            figure .fav .fas, 
-            figure .fav:hover .far {
+            figure .favBtn .fas, 
+            figure .favBtn:hover .far {
                 display: none;
             }
         .title {
@@ -163,7 +172,17 @@ footer {
             font-weight: bold;
             text-transform: capitalize;
         }
-        
+/*Animating fav etc */
+#images, #favorites, #buttons {
+    transition: none;
+}
+/* #images {
+    background: rgba(0,0,0,0.5);
+}
+#favorites {
+    background: rgba(0,0,0,0.7);
+    height: 20vh;
+} */
 
 @media(max-width: 50em) {
 

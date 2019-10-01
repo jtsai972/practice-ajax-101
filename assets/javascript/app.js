@@ -33,18 +33,40 @@ buttonCollapse = false;
 for(let i = 0; i < topics.length; i++) {
     buttonGen(topics[i]);
 }
-
-
-// var img = $(this);
-// var state = img.attr("data-state");
-
-// state = (state === "still") ?
-// 	img.attr({src : img.attr("data-animate"), "data-state" : "animate"}) :
-// 	img.attr({src : img.attr("data-still", "data-state" : "still")})
+$(".fav").hide();
 
 //Do this after page loads
 $(document).ready(function () {
-    $("#search button").on("click", function() {
+    $("nav button").on("click", function(){
+        var clickId = $(this).attr("id");
+        var slideFast = 400;
+        var slideSlow = 700;
+
+        if(clickId === "nav-images"){
+            console.log("nav-images clicked");
+            $(".img").slideDown(slideFast);
+            $(".fav").slideUp(slideFast);
+        } else {
+            console.log("nav-favorites clicked");
+            $(".fav").slideDown(slideFast);
+            $(".img").slideUp(slideFast);
+        }
+
+        /*
+        if(clickId === "nav-images"){
+            console.log("nav-images clicked");
+            $("#buttons").show();
+            $("#images").show();
+            $("#favorites").hide();
+        } else {
+            console.log("nav-favorites clicked");
+            $("#favorites").show();
+            $("#buttons").hide();
+            $("#images").hide();
+        }*/
+    })
+
+    $("#search form button").on("click", function(){
         event.preventDefault();
         console.log("submitted");
         
@@ -54,6 +76,19 @@ $(document).ready(function () {
         buttonGen(queryNew);
 
         $('#search form').trigger("reset");
+    });
+
+    $("#search button").on("click", function(){
+        event.preventDefault();
+        var clicked = $(this).attr("id");
+        
+        if(clicked === "clearBtn") {
+            $("#buttons .container").empty();
+        } else {
+            $("#images .container").empty();
+        }
+
+        
     });
 
 
@@ -75,27 +110,38 @@ $(document).ready(function () {
         //console.log(queryOffset);
     });
 
-    $("#images").on("click", "figure", function() {
+    $(".container").on("click", "figure", function() {
         console.log("image click");
 
         var img = $(this).find("img");
         //console.log(img);
 
-        var state = img.attr("data-state");
-        //console.log(state);
-
-        state === "still" ?
-            img.attr({
-                "src": img.attr("data-animate"), 
-                "data-state": "animate"
-            }) :
-            img.attr({
-                "src": img.attr("data-still"), 
-                "data-state": "still"
-            });
+        toggleAnimation(img);
     })
-    
-    $("#images").on("click", "button", function() {
+
+    // Image Mouseover
+    $("main").on("mouseenter", "figure", function() {
+        //console.log("mouse enter");
+        var img = $(this).find("img");
+
+        img.attr({
+            "src": img.attr("data-animate"), 
+            "data-state": "animate"
+        });
+    })
+
+    // Image Mouseout
+    $("main").on("mouseleave", "figure", function() {
+        //console.log("mouse leave");
+        var img = $(this).find("img");
+
+        img.attr({
+            "src": img.attr("data-still"), 
+            "data-state": "still"
+        });
+    })
+
+    $("#images").on("click", ".favBtn", function() {
         var imgFav = $(this).parent().find("img");
         console.log(imgFav);
 
@@ -109,31 +155,17 @@ $(document).ready(function () {
         console.log(newFav);
 
         favorite(newFav);
-    })
+    });
 
-    // Image Mouseover
-    $("#images").on("mouseenter", "figure", function() {
-        console.log("mouse enter");
+    //removing favorite
+    $("#favorites").on("click", ".favBtn", function() {
+        var unFav = $(this).parent();
+        console.log(unFav);
 
-        var img = $(this).find("img");
+        unFav.remove();
+    });
 
-        img.attr({
-            "src": img.attr("data-animate"), 
-            "data-state": "animate"
-        });
-    })
-
-    // Image Mouseout
-    $("#images").on("mouseleave", "figure", function() {
-        console.log("mouse leave");
-
-        var img = $(this).find("img");
-
-        img.attr({
-            "src": img.attr("data-still"), 
-            "data-state": "still"
-        });
-    })
+    
 });
 
 // ? Welcome to functions
@@ -147,7 +179,7 @@ function buttonGen(str) {
             "data-offset" : 0
         });
 
-    btnContainer.append(newButton);
+    btnContainer.prepend(newButton);
 
     /* if ((buttonCollapse === false) && (btnContainer.height() > 200)) {
         buttonCollapse == true;
@@ -158,7 +190,7 @@ function buttonGen(str) {
 
 function imageGen() {
     var figure = $("<figure>").append(
-        $("<button class='fav'>").append(
+        $("<button class='favBtn'>").append(
             "<i class='fas fa-star'>",
             "<i class='far fa-star'>"
         ),
@@ -206,20 +238,39 @@ function favorite(fav) {
     favArray.push(fav);
 
     var favFig = $("<figure>").append(
+        $("<button class='favBtn'>").append(
+            "<i class='fas fa-star'>",
+            "<i class='far fa-star'>"
+        ),
         $("<img>").attr({
-            "alt" : title,
-            "src" : still,
+            "alt" : fav.title,
+            "src" : fav.still,
             "data-state" : "still",
-            "data-still" : still,
-            "data-animate" : animate
+            "data-still" : fav.still,
+            "data-animate" : fav.animate
         }),
         $("<figcaption>").append(
-            $("<p class='title'>").text(title),
-            $("<p>").text(`${rating}-rated content`)
+            $("<p class='title'>").text(fav.title),
+            $("<p>").text(`${fav.rating}-rated content`)
         )
     );
 
-    $("#favorites").append(favFig);
+    $("#favorites .container").append(favFig);
+}
+
+function toggleAnimation(img){
+    var state = img.attr("data-state");
+        //console.log(state);
+
+    state === "still" ?
+        img.attr({
+            "src": img.attr("data-animate"), 
+            "data-state": "animate"
+        }) :
+        img.attr({
+            "src": img.attr("data-still"), 
+            "data-state": "still"
+        });
 }
 
 // // ToDo: Create an array of starter topics

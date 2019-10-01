@@ -28,6 +28,8 @@ var queryURL =
 //Button vars
 buttonCollapse = false;
 
+$("#favorites").hide();
+
 
 //generating topics at the start
 for(let i = 0; i < topics.length; i++) {
@@ -68,10 +70,10 @@ $(document).ready(function () {
 
     $("#search form button").on("click", function(){
         event.preventDefault();
-        console.log("submitted");
+        //console.log("submitted");
         
         var queryNew = $("input").val();
-        console.log(queryNew);
+        //console.log(queryNew);
 
         buttonGen(queryNew);
 
@@ -110,8 +112,8 @@ $(document).ready(function () {
         //console.log(queryOffset);
     });
 
-    $(".container").on("click", "figure", function() {
-        console.log("image click");
+    $("#images").on("click", "figure", function() {
+        //console.log("image click");
 
         var img = $(this).find("img");
         //console.log(img);
@@ -131,8 +133,9 @@ $(document).ready(function () {
     })
 
     // Image Mouseout
-    $("main").on("mouseleave", "figure", function() {
+    $("#images").on("mouseleave", "figure", function() {
         //console.log("mouse leave");
+
         var img = $(this).find("img");
 
         img.attr({
@@ -218,6 +221,7 @@ function queryAPI(queryURL) {
         method : "GET"
     }).then( function(response) {
         var queryResult = response;
+        var queryTitle = "";
         
 
         for(let i = 0; i < queryLimit; i++) {

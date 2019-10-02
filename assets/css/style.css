@@ -84,13 +84,12 @@ footer {
         #00404D (dark blue (HSB 190, 100, 30) ) 
         #005F73 (next blue (HSB 190, 100, 45) )
     */
-.hide {display}
 
 /* Search */
 #search {
     background: #005F73;
     font-size: 1.2em;
-    padding: 0.5em;
+    padding: 0.5em 0;
 }
 #search .container {
     display: flex;

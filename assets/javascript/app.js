@@ -144,13 +144,9 @@ $(document).ready(function () {
         var imgFav = $(this).parent().find("img");
         console.log(imgFav);
 
-        var newFav = {
-            animate: imgFav.attr("data-animate"),
-            id: imgFav.attr("id"),
-            rating: imgFav.attr("data-rating"),
-            still: imgFav.attr("data-still"),
-            title: imgFav.attr("alt")
-        };
+        //https://media0.giphy.com/media/ONuQzM11fjvoY/200_s.gif?cid=caf2745ff0bd14813ce3a646a9feb8dd7b2343472f3c54c2&rid=200_s.gif
+        //shortening url for local storage
+        var newFav = urlCutter(imgFav);
         //console.log(newFav);
 
         favorite(newFav);
@@ -247,6 +243,8 @@ function toggleAnimation(img){
 
 function favorite(fav) {
     //favArray.push(fav);
+    urlStill = urlJoiner(fav, "still");
+    urlAnimate = urlJoiner(fav, "animate")
 
     var favFig = $("<figure>").append(
         $("<button class='favBtn'>").append(
@@ -256,10 +254,10 @@ function favorite(fav) {
         $("<img>").attr({
             "id" : fav.id,
             "alt" : fav.title,
-            "src" : fav.still,
+            "src" : urlStill,
             "data-state" : "still",
-            "data-still" : fav.still,
-            "data-animate" : fav.animate
+            "data-still" : urlStill,
+            "data-animate" : urlAnimate
         }),
         $("<figcaption>").append(
             $("<p class='title'>").text(fav.title),
@@ -271,6 +269,50 @@ function favorite(fav) {
 
     //console.log("fav.id: " + fav.id);
     localStorage[fav.id] = JSON.stringify(fav);
+}
+
+//shortening url for local storage
+function urlCutter(img) {
+    
+    var str = img.attr("data-still");
+    str = str.replace("https://", "");
+    str = str.replace(
+        "giphy.com/media/" + img.attr("id") + "/200_s.gif?cid=", ""
+    );
+    str = str.replace("&rid=200_s.gif", "");
+    
+    var res = str.split(/\W/g);
+    console.log(res);
+
+    var obj = {
+        id: img.attr("id"),
+        rating: img.attr("data-rating"),
+        cid: res[1],
+        server: res[0],
+        animate: "200.gif",
+        still: "200_s.gif",
+        title: img.attr("alt")
+    };
+    console.log(obj);
+
+    return obj;
+}
+
+function urlJoiner(fav, state){
+    
+    var urlFront = 
+        "https://" + fav.server + 
+        ".giphy.com/media/" + fav.id + 
+        "/"; 
+    var urlEnd = 
+        "?cid=" + fav.cid +
+        "&rid=";
+    
+    var urlAnimate = urlFront + fav.animate + urlEnd + fav.animate;
+    var urlStill = urlFront + fav.still + urlEnd + fav.still;
+
+    return state === "animate" ? urlAnimate :  urlStill;
+    
 }
 
 // // ToDo: Create an array of starter topics

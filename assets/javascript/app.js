@@ -28,8 +28,6 @@ var queryURL =
 //Button vars
 buttonCollapse = false;
 
-$("#favorites").hide();
-
 
 //generating topics at the start
 for(let i = 0; i < topics.length; i++) {
@@ -41,17 +39,16 @@ $(".fav").hide();
 $(document).ready(function () {
     $("nav button").on("click", function(){
         var clickId = $(this).attr("id");
-        var slideFast = 400;
-        var slideSlow = 700;
+        var slideSpeed = 400;
 
         if(clickId === "nav-images"){
             console.log("nav-images clicked");
-            $(".img").slideDown(slideFast);
-            $(".fav").slideUp(slideFast);
+            $(".img").slideDown(slideSpeed);
+            $(".fav").slideUp(slideSpeed);
         } else {
             console.log("nav-favorites clicked");
-            $(".fav").slideDown(slideFast);
-            $(".img").slideUp(slideFast);
+            $(".fav").slideDown(slideSpeed);
+            $(".img").slideUp(slideSpeed);
         }
 
         /*
@@ -70,10 +67,10 @@ $(document).ready(function () {
 
     $("#search form button").on("click", function(){
         event.preventDefault();
-        //console.log("submitted");
+        console.log("submitted");
         
         var queryNew = $("input").val();
-        //console.log(queryNew);
+        console.log(queryNew);
 
         buttonGen(queryNew);
 
@@ -112,8 +109,8 @@ $(document).ready(function () {
         //console.log(queryOffset);
     });
 
-    $("#images").on("click", "figure", function() {
-        //console.log("image click");
+    $(".container").on("click", "figure", function() {
+        console.log("image click");
 
         var img = $(this).find("img");
         //console.log(img);
@@ -133,9 +130,8 @@ $(document).ready(function () {
     })
 
     // Image Mouseout
-    $("#images").on("mouseleave", "figure", function() {
+    $("main").on("mouseleave", "figure", function() {
         //console.log("mouse leave");
-
         var img = $(this).find("img");
 
         img.attr({
@@ -221,7 +217,6 @@ function queryAPI(queryURL) {
         method : "GET"
     }).then( function(response) {
         var queryResult = response;
-        var queryTitle = "";
         
 
         for(let i = 0; i < queryLimit; i++) {
@@ -290,7 +285,7 @@ function favorite(fav) {
 
 // // ToDo: print 10 gif thumbnails to the page
 
-// ToDo: Show gif PG rating (better make it look nice)
+// // ToDo: Show gif PG rating (better make it look nice)
 
 // // ToDo: make gif start/stop running on click;
 // // ToDO: make gif start on hover 

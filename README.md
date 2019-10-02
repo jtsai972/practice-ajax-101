@@ -3,14 +3,14 @@ Using an API for the first time, specifically using [Giphy](https://giphy.com/) 
 
 Live version can be found at [https://jtsai972.github.io/practice-ajax-101/](https://jtsai972.github.io/practice-ajax-101/)
 
-## details
+## Details
 Click on the buttons to generate 10 gifs of whatever button you pressed.
 
 Type a new search into the search bar to give you a new button to click.
 
 This page will remember your favorites!
 
-## functionality
+## Functionality
 Pages
 * "images" is where you go to see new gifs
 * "favorites" is where your favorites will be stored and shown

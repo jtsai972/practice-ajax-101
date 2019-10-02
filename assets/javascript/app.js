@@ -1,6 +1,6 @@
 var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "puppy", "kitty", "bunnies", "hamster", "cats", "dogs", "corgis", "red pandas", "quokka", "cute", "cute animals", "baby animals", "adorable animals"];
 //
-var str, imgStill, imgAnimate;
+var str, imgStill, imgAnimate, imgId;
 
 var favCookie, favImg, favArray = [];
 
@@ -25,14 +25,17 @@ var queryURL =
     "&rating=" + queryRating + 
     "&offset="; //need to add offset and query default ending
 
-//Button vars
-buttonCollapse = false;
-
-
 //generating topics at the start
 for(let i = 0; i < topics.length; i++) {
     buttonGen(topics[i]);
 }
+
+for(let i = 0; i < localStorage.length; i++) {
+    //console.log(localStorage.key(i));
+    var img = JSON.parse(localStorage[localStorage.key(i)]);
+    favorite(img);
+}
+
 $(".fav").hide();
 
 //Do this after page loads
@@ -43,27 +46,18 @@ $(document).ready(function () {
 
         if(clickId === "nav-images"){
             console.log("nav-images clicked");
-            $(".img").slideDown(slideSpeed);
-            $(".fav").slideUp(slideSpeed);
+            $("button.img").show();
+            $("section.img").slideDown(slideSpeed);
+            $("section.fav").slideUp(slideSpeed);
+            $("button.fav").hide();
         } else {
             console.log("nav-favorites clicked");
-            $(".fav").slideDown(slideSpeed);
-            $(".img").slideUp(slideSpeed);
+            $("button.fav").show();
+            $("section.fav").slideDown(slideSpeed);
+            $("section.img").slideUp(slideSpeed);
+            $("button.img").hide();
         }
-
-        /*
-        if(clickId === "nav-images"){
-            console.log("nav-images clicked");
-            $("#buttons").show();
-            $("#images").show();
-            $("#favorites").hide();
-        } else {
-            console.log("nav-favorites clicked");
-            $("#favorites").show();
-            $("#buttons").hide();
-            $("#images").hide();
-        }*/
-    })
+    });
 
     $("#search form button").on("click", function(){
         event.preventDefault();
@@ -83,10 +77,16 @@ $(document).ready(function () {
         
         if(clicked === "clearBtn") {
             $("#buttons .container").empty();
-        } else {
+        } 
+        if(clicked === "clearImg") {
             $("#images .container").empty();
         }
-
+        if(clicked === "clearFav") {
+            $("#favorites .container").empty();
+        }
+        if(clicked === "clearHist") {
+            localStorage.clear();
+        }
         
     });
 
@@ -146,6 +146,7 @@ $(document).ready(function () {
 
         var newFav = {
             animate: imgFav.attr("data-animate"),
+            id: imgFav.attr("id"),
             rating: imgFav.attr("data-rating"),
             still: imgFav.attr("data-still"),
             title: imgFav.attr("alt")
@@ -159,11 +160,13 @@ $(document).ready(function () {
     $("#favorites").on("click", ".favBtn", function() {
         var unFav = $(this).parent();
         console.log(unFav);
-
         unFav.remove();
+        
+        var unFavId = unFav.find("img").attr("id");
+        console.log("UnFavId: " + unFavId);
+        
+        localStorage.removeItem(unFavId);
     });
-
-    
 });
 
 // ? Welcome to functions
@@ -178,12 +181,6 @@ function buttonGen(str) {
         });
 
     btnContainer.prepend(newButton);
-
-    /* if ((buttonCollapse === false) && (btnContainer.height() > 200)) {
-        buttonCollapse == true;
-        btnContainer.addClass("collapse");
-        $("#buttons .more").removeClass("collapse");
-    } */
 }
 
 function imageGen() {
@@ -193,6 +190,7 @@ function imageGen() {
             "<i class='far fa-star'>"
         ),
         $("<img>").attr({
+            "id" : imgId,
             "alt" : queryTitle,
             "src" : imgStill,
             "data-state" : "still",
@@ -217,11 +215,11 @@ function queryAPI(queryURL) {
         method : "GET"
     }).then( function(response) {
         var queryResult = response;
-        
 
         for(let i = 0; i < queryLimit; i++) {
             var queryPath = queryResult.data[i];
 
+            imgId = queryPath.id;
             imgStill = queryPath.images.fixed_height_still.url;
             imgAnimate = queryPath.images.fixed_height.url;
             queryRating = queryPath.rating;
@@ -248,7 +246,7 @@ function toggleAnimation(img){
 }
 
 function favorite(fav) {
-    favArray.push(fav);
+    //favArray.push(fav);
 
     var favFig = $("<figure>").append(
         $("<button class='favBtn'>").append(
@@ -256,6 +254,7 @@ function favorite(fav) {
             "<i class='far fa-star'>"
         ),
         $("<img>").attr({
+            "id" : fav.id,
             "alt" : fav.title,
             "src" : fav.still,
             "data-state" : "still",
@@ -270,7 +269,8 @@ function favorite(fav) {
 
     $("#favorites .container").append(favFig);
 
-    localStorage.favorites = JSON.stringify(favArray);
+    //console.log("fav.id: " + fav.id);
+    localStorage[fav.id] = JSON.stringify(fav);
 }
 
 // // ToDo: Create an array of starter topics

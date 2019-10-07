@@ -1,3 +1,15 @@
+//Databasing
+var config = {
+    apiKey: "AIzaSyDju-ufXCy5nHMPUefNuZu6EjGC5kdLd9I",
+    authDomain: "authentication-43ba6.firebaseapp.com",
+    databaseURL: "https://authentication-43ba6.firebaseio.com",
+    storageBucket: "authentication-43ba6.appspot.com"
+};
+firebase.initializeApp(config); //starting database (jtsai)
+//a couple of database variables that will be referenced (jtsai)
+const database = firebase.database();
+const dbAuth = database.ref('/authentication');
+
 var topics = ["puppies", "kitties", "baby bunnies", "ducklings", "puppy", "kitty", "bunnies", "hamster", "cats", "dogs", "corgis", "red pandas", "quokka", "cute", "cute animals", "baby animals", "adorable animals"];
 //
 var str, imgStill, imgAnimate, imgId;
@@ -5,7 +17,6 @@ var str, imgStill, imgAnimate, imgId;
 var favCookie, favImg, favArray = [];
 
 //API variables
-var myKey = "qzlhtmpfdoOXU95kvVJ4TIH9hkBxj8Od"; //api key
 
 // ToDo: Properly name and set these up, these are placeholders
 
@@ -20,7 +31,6 @@ var queryOffset = 0;
 //This needs to go after the terms in it
 var queryURL = 
     "https://api.giphy.com/v1/gifs/search?" +
-    "api_key=" + myKey + 
     "&limit=" + queryLimit + 
     "&rating=" + queryRating + 
     "&offset="; //need to add offset and query default ending
@@ -205,24 +215,34 @@ function imageGen() {
 }
 
 function queryAPI(queryURL) {
-    // ? Ajax incoming
-    $.ajax({
-        url : queryURL,
-        method : "GET"
-    }).then( function(response) {
-        var queryResult = response;
+    dbAuth.once("value", function(snapshot) {
+        var key;  /* creating variables for keys */
+        key = snapshot.child('giphyKey').val();
+        //console.log(`cId: ${cid} cSec: ${csec}`);
 
-        for(let i = 0; i < queryLimit; i++) {
-            var queryPath = queryResult.data[i];
+        queryURL += "&api_key=" + key;
+        console.log(queryURL);
 
-            imgId = queryPath.id;
-            imgStill = queryPath.images.fixed_height_still.url;
-            imgAnimate = queryPath.images.fixed_height.url;
-            queryRating = queryPath.rating;
-            queryTitle = (queryPath.title).replace(/(GIF).*$/g, "");
+        // ? Ajax incoming
+        $.ajax({
+            url : queryURL,
+            method : "GET"
+        }).then( function(response) {
+            var queryResult = response;
+            var queryTitle = "";
+            
 
-            imageGen();
-        }
+            for(let i = 0; i < queryLimit; i++) {
+                var queryPath = queryResult.data[i];
+
+                imgStill = queryPath.images.fixed_height_still.url;
+                imgAnimate = queryPath.images.fixed_height.url;
+                queryRating = queryPath.rating;
+                queryTitle = (queryPath.title).replace(/(GIF).*$/g, "");
+
+                imageGen();
+            }
+        });
     });
 }
 

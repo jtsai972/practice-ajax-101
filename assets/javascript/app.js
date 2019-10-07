@@ -221,7 +221,7 @@ function queryAPI(queryURL) {
         //console.log(`cId: ${cid} cSec: ${csec}`);
 
         queryURL += "&api_key=" + key;
-        console.log(queryURL);
+        //console.log(queryURL);
 
         // ? Ajax incoming
         $.ajax({
